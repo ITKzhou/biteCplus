@@ -54,3 +54,34 @@ void Circle::showCircle()
     cout << "面积:>" << _area << endl;
 }
 
+void Point1::Set(int x, int y) {
+    this->x = x;
+    this->y = y;
+}
+
+//Rectangle::Rectangle()//无参数的构造函数
+//{
+//    _length = 0;
+//    _width = 0;
+//}
+Rectangle::Rectangle(int length, int width)//带参数的构造函数
+{
+    _length = length;
+    _width = width;
+}
+
+void Rectangle::set(int length, int width)
+{
+    _length = length;
+    _width = width;
+}
+int Rectangle::area()
+{
+    return _length * _width;
+}
+
+
+
+
+
+

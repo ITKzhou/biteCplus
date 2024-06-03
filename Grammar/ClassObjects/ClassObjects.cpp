@@ -9,7 +9,7 @@ void Student::SetInfor(string name, int age, string address, float scores) {
     _address = address;
     _scores = scores;
 }
-void Student::ShowInfor() {
+void Student::ShowInfor() const {
     cout << _name << endl;
     cout << _age << endl;
     cout << _address << endl;
@@ -40,7 +40,7 @@ void Circle::setRarea(double a)
         _radius = sqrt(a / PI);
     }
 }
-double Circle::getRadius()
+double Circle::getRadius() const
 {
     return _radius;
 }
@@ -48,7 +48,7 @@ double Circle::getRarea()
 {
     return _area;
 }
-void Circle::showCircle()
+void Circle::showCircle() const
 {
     cout << "°ë¾¶:>" << _radius << endl;
     cout << "Ãæ»ý:>" << _area << endl;

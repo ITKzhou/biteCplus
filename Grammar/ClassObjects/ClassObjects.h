@@ -2,6 +2,7 @@
 #include<iostream>
 #include <cstring>
 #include <cstdlib>
+#include <cassert>
 #include <cmath>
 using namespace std;
 
@@ -12,9 +13,9 @@ class Circle
 public:
     void setRadius(double radius);
     void setRarea(double area);
-    double getRadius();
+    double getRadius() const;
     double getRarea();
-    void showCircle();
+    void showCircle() const;
 
 private:
     double _radius;
@@ -27,7 +28,7 @@ class Student
     //类内声明，类外定义
 public:
     void SetInfor(string name, int age, string address, float scores);
-    void ShowInfor();
+    void ShowInfor() const;
 
 private:
     string _name;
@@ -117,3 +118,28 @@ template <typename T>
 inline T max(T a, T b) {
     return (a > b) ? a : b;
 }
+
+
+class Data1
+{
+public:
+    Data1() :_year(1), _month(1), _day(1){}
+
+    Data1(int year, int month, int day) :_year(year), _month(month), _day(day){}
+
+    Data1(const Data1& other):_year(other._year), _month(other._month), _day(other._day) {}//拷贝构造函数
+
+    Data1(const Data1&& other) noexcept :_year(other._year), _month(other._month), _day(other._day) {} //移动构造函数
+
+   
+
+    ~Data1() 
+    { 
+        cout << "this" << endl;
+        cout << "~Data" << endl; 
+    }
+
+    void show(){ cout << _year << "-" << _month << "-" << _day << endl; }
+private:
+    int _year, _month, _day;
+};

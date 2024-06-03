@@ -15,30 +15,13 @@ Data::Data(int year, int month, int day)
 	_month = month;
 	_day = day;
 }
-Data::Data(const Data& other)
-{
-	cout << "Data&" << endl;
-	_year = other._year;
-	_month = other._month;
-	_day = other._day;
-}
-Data::Data(Data&& other) noexcept
-{
-	cout << "Data&&" << endl;
-	_year = other._year;
-	_month = other._month;
-	_day = other._day;
-	other._year = 0;
-	other._month = 0;
-	other._day = 0;
-}
 
 void Data::Print() const
 {
 	cout << _year << "-" << _month << "-" << _day << endl;
 }
 
-bool Data::operator<(Data& d)
+bool Data::operator<(const Data& d)
 {
 	if (_year < d._year)
 	{
@@ -57,25 +40,25 @@ bool Data::operator<(Data& d)
 	return false;
 }
 
-bool Data::operator<=(Data& d)
+bool Data::operator<=(const Data& d)
 {
 	return (*this < d) || (*this == d);
 }
-bool Data::operator>(Data& d)
+bool Data::operator>(const Data& d)
 {
 	return !(*this <= d);
 }
-bool Data::operator>=(Data& d)
+bool Data::operator>=(const Data& d)
 {
 	return !(*this < d);
 }
-bool Data::operator==(Data& d)
+bool Data::operator==(const Data& d)
 {
 	return _year == d._year
 		&& _month == d._month
 		&& _day == d._day;
 }
-bool Data::operator!=(Data& d)
+bool Data::operator!=(const Data& d)
 {
 	return !(*this == d);
 }
@@ -122,6 +105,50 @@ Data Data::operator-(int day)
 	Data tmp = *this;
 	tmp -= day;
 	return tmp;
+}
+
+
+Data& Data::operator++()
+{
+	*this += 1;
+	return *this;
+}
+Data Data::operator++(int)
+{
+	Data tmp = *this;
+	*this += 1;
+	return tmp;
+}
+Data& Data::operator--()
+{
+	*this -= 1;
+	return *this;
+}
+Data Data::operator--(int)
+{
+	Data tmp = *this;
+	*this -= 1;
+	return tmp;
+}
+
+int Data::operator-(const Data& d) 
+{
+	int flag = 1;
+	Data max = *this;
+	Data min = d;
+	if (*this < d)//假设法分出大小值
+	{
+		flag = -1;
+		max = d;
+		min = *this;
+	}
+	int n = 0;
+	while (min != max)//小的数一直加到大数，中间加的数就是两日期之差
+	{
+		++min;
+		++n;
+	}
+	return n * flag;
 }
 
 

@@ -5,9 +5,11 @@
 
 static void Test1()
 {
-	Data d1(2024, 8, 28);
-	Data d2(2024, 9, 1);
-	cout << d1 - d2 << endl;
+	Data d1;
+	Data d2;
+	cin >> d1 >> d2;
+	cout << d1 << d2;
+
 
 }
 
@@ -36,16 +38,16 @@ static void Test2()
 }
 
 
-int main()
-{
-	Test1();
-
-	//Test2();
-
-
-
-	return 0;
-}
+//int main()
+//{
+//	Test1();
+//
+//	//Test2();
+//
+//
+//
+//	return 0;
+//}
 
 
 

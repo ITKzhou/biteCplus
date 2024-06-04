@@ -14,14 +14,31 @@ Data::Data(int year, int month, int day)
 	_year = year;
 	_month = month;
 	_day = day;
+	if (isInvalidData())
+	{
+		cout << "The date below is illegal!" << endl;
+	}
 }
 
-void Data::Print() const
+void Data::Print() const//这个const修饰this指针指向的对象，this指针不允许出现在形参或实参的位置
 {
 	cout << _year << "-" << _month << "-" << _day << endl;
 }
 
-bool Data::operator<(const Data& d)
+bool Data::isInvalidData()
+{
+	if (_year <= 0 || _month < 1 || _month>12 
+		|| _day < 1 || _day > GetMonthDay(_year, _month))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool Data::operator<(const Data& d)const
 {
 	if (_year < d._year)
 	{
@@ -40,25 +57,25 @@ bool Data::operator<(const Data& d)
 	return false;
 }
 
-bool Data::operator<=(const Data& d)
+bool Data::operator<=(const Data& d)const
 {
 	return (*this < d) || (*this == d);
 }
-bool Data::operator>(const Data& d)
+bool Data::operator>(const Data& d)const
 {
 	return !(*this <= d);
 }
-bool Data::operator>=(const Data& d)
+bool Data::operator>=(const Data& d)const
 {
 	return !(*this < d);
 }
-bool Data::operator==(const Data& d)
+bool Data::operator==(const Data& d)const
 {
 	return _year == d._year
 		&& _month == d._month
 		&& _day == d._day;
 }
-bool Data::operator!=(const Data& d)
+bool Data::operator!=(const Data& d)const
 {
 	return !(*this == d);
 }
@@ -79,7 +96,7 @@ Data& Data::operator+=(int day)
 	}
 	return *this;
 }
-Data Data::operator+(int day)
+Data Data::operator+(int day)const
 {
 	Data tmp = *this;
 	tmp += day;
@@ -100,7 +117,7 @@ Data& Data::operator-=(int day)
 	}
 	return *this;
 }
-Data Data::operator-(int day)
+Data Data::operator-(int day)const
 {
 	Data tmp = *this;
 	tmp -= day;
@@ -131,7 +148,7 @@ Data Data::operator--(int)
 	return tmp;
 }
 
-int Data::operator-(const Data& d) 
+int Data::operator-(const Data& d)const
 {
 	int flag = 1;
 	Data max = *this;
@@ -151,6 +168,26 @@ int Data::operator-(const Data& d)
 	return n * flag;
 }
 
+ostream& operator<<(ostream& out, const Data& d)
+{
+	cout << d._year << "/" << d._month << "/" << d._day << endl;
+	return out;
+}
 
-
-
+istream& operator>>(istream& in, Data& d)
+{
+	cout << "Please enter a date:>"<<endl;
+	while (true)
+	{
+		cin >> d._year >> d._month >> d._day;
+		if (d.isInvalidData())
+		{
+			cout << "The date entered is invalid, please re-enter it!" << endl;
+		}
+		else 
+		{
+			break;
+		}
+	}
+	return in;
+}

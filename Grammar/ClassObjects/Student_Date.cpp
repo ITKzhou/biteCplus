@@ -12,7 +12,7 @@ public:
 	void setYear(int year); 
 	void setMonth(int month); 
 	void setDay(int day); 
-	void print();
+	void print() const;
 
 private:
 	int _year;
@@ -84,7 +84,7 @@ void Date::setDay(int day)
 	_day = day;
 }
 
-void Date::print()
+void Date::print() const
 {
 	cout << _year << "/" << _month << "/" << _day << endl;
 }
